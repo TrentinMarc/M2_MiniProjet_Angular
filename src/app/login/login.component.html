@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Adresse Mail" formControlName="email">
+        </mat-form-field>
+        <mat-error *ngIf="email?.hasError('email') && (!email?.invalid || !email?.dirty)">
+          Veuillez saisir une adresse mail valide...
+        </mat-error>
+        <mat-error *ngIf="email?.hasError('required')">
+          Email <strong>requis</strong>
+        </mat-error>
+      </p>
+
+
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Nom" formControlName="nom">
+        </mat-form-field>
+        <mat-error *ngIf="nom?.errors?.['required'] && (nom?.dirty || nom?.invalid)">
+          Nom <strong>requis</strong>
+        </mat-error>
+      </p>
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="Prénom" formControlName="prenom">
+        </mat-form-field>
+        <mat-error *ngIf="prenom?.errors?.['required']">
+          Nom <strong>requis</strong>
+        </mat-error>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Mot de passe" formControlName="mdp">
+        </mat-form-field>
+        <mat-error *ngIf="mdp?.errors?.['required']">
+          Mot de passe <strong>requis</strong>
+        </mat-error>
+        <mat-error *ngIf="mdp?.errors?.['minlength']">
+          Le mot de passe doit contenir au minimum <strong>{{ mdpMinLength }} caractères</strong>
+        </mat-error>
+      </p>
+      <p>
+        <mat-form-field>
+          <input type="password" matInput placeholder="Confirmer le mot de passe" formControlName="confirmMdp">
+        </mat-form-field>
+        <mat-error *ngIf="confirmMdp?.errors?.['mustMatch']">
+          Les mots de passe doivent correspondre
+        </mat-error>
+      </p>
+
+      <div class="button">
+        <button type="submit" mat-button [disabled]>Se connecter</button>
+      </div>
+
+    </form>
+  </mat-card-content>
+</mat-card>

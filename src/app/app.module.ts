@@ -17,17 +17,24 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { AuthGuard } from './shared/auth.guard';
+import { MatiereComponent } from './matiere/matiere.component';
+import {MatSelectModule} from "@angular/material/select";
+import { LoginComponent } from './login/login.component';
 
 const routes:Routes = [
   {
     path:"",
     component: AssignmentsComponent
+  },
+  {
+    path:"login",
+    component: LoginComponent
   },
   {
     path:"home",
@@ -54,17 +61,19 @@ const routes:Routes = [
     RenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
-    EditAssignmentComponent
+    EditAssignmentComponent,
+    MatiereComponent,
+    LoginComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatButtonModule, MatIconModule, MatDividerModule,
-    FormsModule, MatInputModule, MatDatepickerModule,
-    MatNativeDateModule, MatListModule, MatCardModule,
-    MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
-    RouterModule.forRoot(routes)
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatButtonModule, MatIconModule, MatDividerModule,
+        FormsModule, MatInputModule, MatDatepickerModule,
+        MatNativeDateModule, MatListModule, MatCardModule,
+        MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
+        RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

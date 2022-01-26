@@ -2,6 +2,10 @@
       #assignmentForm
       (submit)="onSubmit(); assignmentForm.reset();">
 
+<!--  <mat-form-field>-->
+<!--    <input matInput [(ngModel)]="auteur" name="auteur" placeholder="Auteur">-->
+<!--  </mat-form-field>-->
+
   <mat-form-field>
     <input matInput [(ngModel)]="nomDevoir" name="nom" placeholder="Nom du devoir">
   </mat-form-field>
@@ -11,6 +15,15 @@
 
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+      <mat-label>Favorite food</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let matiere of (matieres | async)" [value]="matiere._id">
+          {{matiere.libelle}}
+        </mat-option>
+      </mat-select>
   </mat-form-field>
 
   <button mat-stroked-button color="primary">
