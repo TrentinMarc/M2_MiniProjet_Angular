@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -17,45 +17,61 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSliderModule} from '@angular/material/slider';
 
-import { AssignmentsComponent } from './assignments/assignments.component';
-import { RenduDirective } from './shared/rendu.directive';
+import {AssignmentsComponent} from './assignments/assignments.component';
+import {RenduDirective} from './shared/rendu.directive';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
-import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
-import { Routes, RouterModule } from '@angular/router';
-import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import { AuthGuard } from './shared/auth.guard';
-import { MatiereComponent } from './matiere/matiere.component';
+import {AssignmentDetailComponent} from './assignments/assignment-detail/assignment-detail.component';
+import {AddAssignmentComponent} from './assignments/add-assignment/add-assignment.component';
+import {Routes, RouterModule} from '@angular/router';
+import {EditAssignmentComponent} from './assignments/edit-assignment/edit-assignment.component';
+import {AuthGuard} from './shared/auth.guard';
+import {AuthGuardService} from "./shared/auth-guard.service";
+import {MatiereComponent} from './matiere/matiere.component';
 import {MatSelectModule} from "@angular/material/select";
-import { LoginComponent } from './login/login.component';
+import {LoginComponent} from './login/login.component';
+import {ToastrModule} from 'ngx-toastr';
+import { RegisterComponent } from './register/register.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
-const routes:Routes = [
+const routes: Routes = [
   {
-    path:"",
-    component: AssignmentsComponent
-  },
-  {
-    path:"login",
+    path: "",
     component: LoginComponent
   },
   {
-    path:"home",
-    component: AssignmentsComponent
+    path: "login",
+    component: LoginComponent
   },
   {
-    path:"add",
+    path: "register",
+    component: RegisterComponent
+  },
+  {
+    path: "home",
+    component: AssignmentsComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: "add",
     component: AddAssignmentComponent
   },
   {
-    path:"assignment/:id",
-    component: AssignmentDetailComponent
+    path: "assignment/:id",
+    component: AssignmentDetailComponent,
+    canActivate: [AuthGuardService]
   },
   {
-    path:"assignment/:id/edit",
+    path: "assignment/:id/edit",
     component: EditAssignmentComponent,
-    canActivate : [AuthGuard]
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
 ];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,19 +81,24 @@ const routes:Routes = [
     AddAssignmentComponent,
     EditAssignmentComponent,
     MatiereComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatButtonModule, MatIconModule, MatDividerModule,
-        FormsModule, MatInputModule, MatDatepickerModule,
-        MatNativeDateModule, MatListModule, MatCardModule,
-        MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
-        RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule, 
-        MatToolbarModule, MatSliderModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    MatButtonModule, MatIconModule, MatDividerModule,
+    FormsModule, MatInputModule, MatDatepickerModule,
+    MatNativeDateModule, MatListModule, MatCardModule,
+    MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
+    RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule, MatSliderModule, MatToolbarModule
+  ],
+  exports: [
+    RouterModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

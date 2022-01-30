@@ -1,9 +1,9 @@
 export class Assignment {
   nom!:string;
-  nomAuteur!:string;
-  dateDeRendu!:Date;
+  dateDeRendu!:string;
   rendu!:boolean;
-  id?:number;
+  matiere: string | undefined;
+  auteur?: string;
   _id?:string;
   commentaire!:string;
 }

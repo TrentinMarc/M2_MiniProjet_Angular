@@ -11,14 +11,23 @@
         {{title}}
     </span>
     <span class="example-spacer"></span>
-    <mat-slide-toggle (click)="login()">S'identifier</mat-slide-toggle>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="seDeconnecter()" [disabled]="!isLogged()">
+            <mat-icon>logout</mat-icon>
+          </button>
   </mat-toolbar>
 </h1>
 
 
-<br>
-<button mat-raised-button color="warn" (click)="remplirBD()">
-  <span class="material-icons">download</span> Peupler la base de données
-</button>
+
+<!--  <mat-toolbar color="primary">-->
+<!--    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">-->
+<!--      <mat-icon>menu</mat-icon>-->
+<!--    </button>-->
+<!--    <span>Assignment app</span>-->
+<!--    <span class="example-spacer"></span>-->
+<!--    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="seDeconnecter()">-->
+<!--      <mat-icon>logout</mat-icon>-->
+<!--    </button>-->
+<!--  </mat-toolbar>-->
 
 <router-outlet></router-outlet>

@@ -8,6 +8,8 @@
     </a>
   </div>
 
+<!--  </div>-->
+  <!-- MARIE -->
   <h2 style="margin: 0.13em;">Liste des devoirs :</h2>
   <p style="margin: 0.13em;">Nombre de devoirs par page :
     <mat-slider aria-label="unit(s)" color="primary" min="1" max="100" step="1" value="10" thumbLabel [(ngModel)]="limit" (change)="getAssignments()" style=" width: 250px;">
@@ -15,6 +17,7 @@
     </mat-slider>
   </p>
 <!--   <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()"> {{limit}}-->
+  1
 <div class="pagination" style="margin:auto">
   <button mat-raised-button color="primary" (click)="premierePage()" [disabled]="page===1" matTooltip="Première page">
     <span class="material-icons">keyboard_double_arrow_left</span>
@@ -23,7 +26,7 @@
   <button mat-raised-button color="primary" (click)="pagePrecedente()" [disabled]="!hasPrevPage" matTooltip="Page précédente">
     <span class="material-icons">keyboard_arrow_left</span>
   </button>
-  &nbsp;
+  &nbsp;{{page}}
   <button mat-raised-button color="primary" (click)="pageSuivante()" [disabled]="!hasNextPage" matTooltip="Page suivante">
     <span class="material-icons">keyboard_arrow_right</span>
   </button>
@@ -31,11 +34,40 @@
   <button mat-raised-button color="primary" (click)="dernierePage()" [disabled]="page===totalPages" matTooltip="Dernière page">
     <span class="material-icons">keyboard_double_arrow_right</span>
   </button>
+  {{totalPages}}
 </div>
+<!-- marie -->
+<!--  <h2>Liste des assignments :</h2>-->
+<!--  Nb assignments par page :-->
+<!--  <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()">-->
+<!--  Limite : {{limit}} Assignment(s)-->
+<!--  <br>-->
+<!--  {{page}} / {{totalPages}} pages-->
+<!--  <div class="pagination">-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="premierePage()"-->
+<!--            [disabled]="page===1"-->
+<!--    >Première page</button>-->
+<!--    &nbsp;-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="pagePrecedente()"-->
+<!--            [disabled]="!hasPrevPage"-->
+<!--    >Page précédente</button>-->
+<!--    &nbsp;-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="pageSuivante()"-->
+<!--            [disabled]="!hasNextPage"-->
+<!--    >Page suivante</button>-->
+<!--    &nbsp;-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="dernierePage()"-->
+<!--            [disabled]="page >= totalPages"-->
+<!--    >Dernière page</button>-->
+<!--  </div>-->
   <mat-list *ngFor="let assignment of assignments">
     <nav>
-      <a routerLink="/assignment/{{assignment.id}}">
-        <h3 mat-subheader>Date de rendu : {{assignment.dateDeRendu | date}}</h3>
+      <a routerLink="/assignment/{{assignment._id}}">
+        <h3 mat-subheader>Date de rendu : {{assignment.dateDeRendu}}</h3>
         <mat-list-item>
           <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
             {{assignment.nom}} a été rendu par l'élève.
@@ -51,3 +83,116 @@
   </mat-list>
 
 </main>
+
+
+<!--<div class="example-container">-->
+<!--  <p>-->
+<!--    Start editing to see some magic happen :)-->
+<!--  </p>-->
+<!--  <div class="table-container mat-elevation-z8">-->
+<!--    <mat-table class="my-table" #table [dataSource]="assignments">-->
+
+<!--      &lt;!&ndash;- Note that these columns can be defined in any order.-->
+<!--            The actual rendered columns are set as a property on the row definition" &ndash;&gt;-->
+
+<!--      &lt;!&ndash; Position Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Matière">-->
+<!--        <mat-header-cell *matHeaderCellDef> Matière </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.matiere}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Name Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Date de rendu">-->
+<!--        <mat-header-cell *matHeaderCellDef> Date de rendu </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.dateDeRendu}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Weight Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Auteur">-->
+<!--        <mat-header-cell *matHeaderCellDef> Auteur </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.auteur}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Remarques">-->
+<!--        <mat-header-cell *matHeaderCellDef> Remarques </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.remarques}} </mat-cell>-->
+<!--      </ng-container>-->
+<!--      &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Note">-->
+<!--        <mat-header-cell *matHeaderCellDef> Note </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.note}} </mat-cell>-->
+<!--      </ng-container>-->
+<!--      &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Rendu">-->
+<!--        <mat-header-cell *matHeaderCellDef> Rendu </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.rendu}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--&lt;!&ndash;      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>&ndash;&gt;-->
+
+<!--    </mat-table>-->
+<!--&lt;!&ndash;    <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator>&ndash;&gt;-->
+<!--    <mat-paginator [length]="20" [pageSizeOptions]="[5, 10, 30, 50]" [pageIndex]="1"></mat-paginator>-->
+
+
+<!--  </div>-->
+<!--  <p>-->
+<!--    Some more content here :)-->
+<!--  </p>-->
+<!--</div>-->
+
+<!--<main class="container">-->
+<!--  <div class="ajouterBtn">-->
+<!--    <a routerLink="/add">-->
+<!--      <button mat-flat-button color="accent">-->
+<!--        Ajouter Assignment-->
+<!--      </button>-->
+<!--    </a>-->
+<!--  </div>-->
+
+<!--  <h2>Liste des assignments :</h2>-->
+<!--  Nb assignments par page :-->
+<!--  <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()"> {{limit}}-->
+<!--<div class="pagination">-->
+<!--  <button mat-stroked-button color="primary"-->
+<!--          (click)="premierePage()"-->
+<!--          [disabled]="page===1"-->
+<!--  >Première page</button>-->
+<!--  &nbsp;-->
+<!--  <button mat-stroked-button color="primary"-->
+<!--          (click)="pagePrecedente()"-->
+<!--          [disabled]="!hasPrevPage"-->
+<!--  >Page précédente</button>-->
+<!--  &nbsp;-->
+<!--  <button mat-stroked-button color="primary"-->
+<!--          (click)="pageSuivante()"-->
+<!--          [disabled]="!hasNextPage"-->
+<!--          >Page suivante</button>-->
+<!--  &nbsp;-->
+<!--  <button mat-stroked-button color="primary"-->
+<!--          (click)="dernierePage()"-->
+<!--          [disabled]="page===totalPages"-->
+<!--  >Dernière page</button>-->
+<!--</div>-->
+<!--&lt;!&ndash;  <mat-list *ngFor="let assignment of assignments">&ndash;&gt;-->
+<!--&lt;!&ndash;    <nav>&ndash;&gt;-->
+<!--&lt;!&ndash;      <a routerLink="/assignment/{{assignment.id}}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h3 mat-subheader>Date de rendu : {{assignment.dateDeRendu | date}}</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;        <mat-list-item>&ndash;&gt;-->
+<!--&lt;!&ndash;          <p *ngIf="assignment.rendu; else nonsoumis" appRendu>&ndash;&gt;-->
+<!--&lt;!&ndash;            {{assignment.nom}} a été rendu par l'élève.&ndash;&gt;-->
+<!--&lt;!&ndash;          </p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;          <ng-template #nonsoumis>&ndash;&gt;-->
+<!--&lt;!&ndash;            <p>{{assignment.nom}} non rendu.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;          </ng-template>&ndash;&gt;-->
+<!--&lt;!&ndash;          <mat-divider></mat-divider>&ndash;&gt;-->
+<!--&lt;!&ndash;        </mat-list-item>&ndash;&gt;-->
+<!--&lt;!&ndash;      </a>&ndash;&gt;-->
+<!--&lt;!&ndash;    </nav>&ndash;&gt;-->
+<!--&lt;!&ndash;  </mat-list>&ndash;&gt;-->
+
+<!--</main>-->

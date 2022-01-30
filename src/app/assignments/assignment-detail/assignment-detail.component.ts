@@ -26,7 +26,7 @@ export class AssignmentDetailComponent implements OnInit {
   getAssignment() {
     // on récupère l'id dans l'URL
     // le + force la conversion de string à number
-    const id:number = +this.route.snapshot.params['id'];
+    const id: string = this.route.snapshot.params['id'];
     console.log("ID = " + id);
 
     this.assignmentService.getAssignment(id)
@@ -71,14 +71,14 @@ export class AssignmentDetailComponent implements OnInit {
 
   onClickEdit() {
     // correspond à /assignment/1/edit?nom=Buffa&prenom=Michel#edit
-    this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'],
-                        {
-                          queryParams: {
-                            nom:'Buffa',
-                            prenom:'Michel'
-                        },
-                          fragment:'edit'
-                      });
+    // this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'],
+    //                     {
+    //                       queryParams: {
+    //                         nom:'Buffa',
+    //                         prenom:'Michel'
+    //                     },
+    //                       fragment:'edit'
+    //                   });
   }
 
   isAdmin() {

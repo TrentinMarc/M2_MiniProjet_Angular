@@ -8,8 +8,12 @@ import {
   ValidatorFn,
   Validators
 } from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 import {User} from "../user/user.model";
 import {ErrorStateMatcher} from "@angular/material/core";
+import {UserService} from "../user/user.service";
+import {Observable} from "rxjs";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,51 +23,44 @@ export class LoginComponent implements OnInit {
   // form: any;
   user!: User;
   error: any;
-  mdpMinLength: number = 6;
 
   loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.email, Validators.required]],
-    nom: ['', Validators.required],
-    prenom: ['', Validators.required],
-    mdp: ['', [Validators.required, Validators.minLength(this.mdpMinLength)]],
-    confirmMdp: ['', Validators.required]
-  }, { validators: this.MustMatch('mdp', 'confirmMdp')})
+    email: [null, Validators.required],
+    mdp: [null, Validators.required],
+  })
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
   }
 
+  isValid(controlName: string){
+    return this.loginForm.get(controlName)?.invalid && this.loginForm.get(controlName)?.touched;
+  }
   onSubmit() {
     if(this.loginForm.valid){
-      this.user = new User(this.email?.value, this.nom?.value, this.prenom?.value, this.prenom?.value);
-      console.log(this.user)
+      this.user = new User(this.loginForm.value.email, '', '', this.loginForm.value.mdp);
+      this.userService.loginUser(this.user)
+        .subscribe(
+          response => {
+            console.log(response)
+            this.toastr.success(`Bienvenu ${this.user.nom} ${this.user.prenom}`, response.message, {
+              progressBar: true,
+              positionClass: 'toast-top-center'
+            });
+            localStorage.setItem('currentUser', response.token);
+            this.router.navigate(['/home'])
+          },
+          err => {
+            this.toastr.error(err.error.errorMessage, 'Erreur...', {
+              progressBar: true,
+              positionClass: 'toast-top-center'
+            });
+          });
     }
   }
 
   get email() { return this.loginForm.get('email')}
-  get nom() { return this.loginForm.get('nom')}
-  get prenom() { return this.loginForm.get('prenom')}
   get mdp() { return this.loginForm.get('mdp')}
-  get confirmMdp() { return this.loginForm.get('confirmMdp')}
-
-  MustMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-
-      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
-        // return if another validator has already found an error on the matchingControl
-        return;
-      }
-
-      // set error on matchingControl if validation fails
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    }
-  }
 }
