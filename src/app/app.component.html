@@ -1,18 +1,24 @@
 <h1>
-  <nav>
-    <a routerLink="/home">
-      {{title}}
-    </a>
-  </nav>
+  <mat-toolbar color="primary">
+    <div class="example-button-container">
+      <a routerLink="/home" style="color:white; text-decoration: none;">
+        <button mat-mini-fab aria-label="Example icon button with a home icon">
+          <mat-icon>home</mat-icon>
+        </button>
+      </a>
+    </div>
+    <span>
+        {{title}}
+    </span>
+    <span class="example-spacer"></span>
+    <mat-slide-toggle (click)="login()">S'identifier</mat-slide-toggle>
+  </mat-toolbar>
 </h1>
 
-<mat-slide-toggle (click)="login()">Login</mat-slide-toggle>
+
 <br>
-<button mat-raised-button
-        color="primary"
-        (click)="remplirBD()"
->
-        PEUPLER BD
+<button mat-raised-button color="warn" (click)="remplirBD()">
+  <span class="material-icons">download</span> Peupler la base de données
 </button>
 
 <router-outlet></router-outlet>

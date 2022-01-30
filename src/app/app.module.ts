@@ -14,6 +14,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { HttpClientModule } from '@angular/common/http';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -72,7 +74,8 @@ const routes:Routes = [
         FormsModule, MatInputModule, MatDatepickerModule,
         MatNativeDateModule, MatListModule, MatCardModule,
         MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
-        RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule
+        RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule, 
+        MatToolbarModule, MatSliderModule
     ],
   providers: [],
   bootstrap: [AppComponent]
