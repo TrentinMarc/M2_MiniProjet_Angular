@@ -14,8 +14,9 @@ export class MatieresService {
   constructor(private loggingService:LoggingService,
               private http:HttpClient) { }
 
-  url = "http://localhost:8080/api/matiere";
+  // url = "http://localhost:8080/api/matiere";
   // url = "https://api-intense2022.herokuapp.com/api/matieres";
+  url = "https://miniprojetbackend.herokuapp.com/api/matieres"
 
   getMatieres():Observable<Matiere[]> {
     return this.http.get<Matiere[]>(this.url);

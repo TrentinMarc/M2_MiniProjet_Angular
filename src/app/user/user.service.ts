@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  url = 'http://localhost:8080/api/user/';
-
+  // url = 'http://localhost:8080/api/user/';
+  url = "https://miniprojetbackend.herokuapp.com/api/user/"
   getUsers():Observable<User[]> {
     return this.http.get<User[]>(this.url, this.authService.getHeader());
   }

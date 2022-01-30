@@ -18,7 +18,8 @@ export class AssignmentsService {
 
   //url = "http://localhost:8010/api/assignments";
   // url = "https://api-intense2022.herokuapp.com/api/assignments";
-  url = "http://localhost:8080/api/assignment/"
+  // url = "http://localhost:8080/api/assignment/"
+  url="https://miniprojetbackend.herokuapp.com/api/assignment/"
   getAssignments(limit: string, page: string):Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.url+'all/' + limit + "/" +page, this.authService.getHeader());
   }
@@ -36,12 +37,6 @@ export class AssignmentsService {
   }
 
   addAssignment(assignment:Assignment):Observable<any>{
-    //this.assignments.push(assignment);
-
-    this.loggingService.log(assignment.nom, "ajouté");
-
-    //return of(`Assignment ${assignment.nom} ajouté`);
-
     return this.http.post<Assignment>(this.url, assignment);
   }
 

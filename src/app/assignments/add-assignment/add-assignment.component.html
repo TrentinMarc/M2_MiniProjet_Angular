@@ -1,23 +1,24 @@
 <br><br>
-<form ngForm class="form"
-      #assignmentForm
-      (submit)="onSubmit(); assignmentForm.reset();" style="width:30em; margin:auto">
+<form [formGroup]="addForm"
+      (submit)="onSubmit();" style="width:70%; margin:auto">
 
   <mat-form-field appearance="outline" hintLabel="Max 50 characters">
     <mat-label>Nom du devoir</mat-label>
-    <input matInput [(ngModel)]="nomDevoir" #input name="nom" maxlength="50" placeholder="Ex: DM de Mathématiques" required>
-    <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+    <input matInput formControlName="nom" name="nom" maxlength="50" placeholder="Ex: DM de Mathématiques" required>
   </mat-form-field>
 
-  <mat-form-field appearance="outline" hintLabel="Max 50 characters">
+  <mat-form-field appearance="outline">
     <mat-label>Auteur</mat-label>
-    <input matInput [(ngModel)]="nomAuteur" #input name="auteur" maxlength="50" placeholder="Prénom Nom" required>
-    <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+    <mat-select formControlName="auteur" >
+      <mat-option *ngFor="let auteur of (auteurs | async)" [value]="auteur._id" required>
+        {{auteur.nom}} {{auteur.prenom}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Matière</mat-label>
-    <mat-select>
+    <mat-select formControlName="matiere">
       <mat-option *ngFor="let matiere of (matieres | async)" [value]="matiere._id" required>
         {{matiere.libelle}}
       </mat-option>
@@ -26,15 +27,14 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Date de rendu</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" required>
+    <input matInput [matDatepicker]="picker" formControlName="dateDeRendu" name="date" required>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field appearance="outline" hintLabel="Max 300 characters">
     <mat-label>Commentaire</mat-label>
-    <textarea matInput [(ngModel)]="commentaire" name="commentaire" maxlength="300" placeholder="Facultatif"></textarea>
-    <mat-hint align="end">{{input.value?.length || 0}}/300</mat-hint>
+    <textarea matInput formControlName="remarques" name="commentaire" maxlength="300" placeholder="Facultatif"></textarea>
   </mat-form-field>
 
   <br>
@@ -44,3 +44,4 @@
   </button>
   <br><br>
 </form>
+

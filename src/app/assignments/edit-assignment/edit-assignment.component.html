@@ -9,7 +9,7 @@
 
     <mat-form-field appearance="outline" hintLabel="Max 50 characters">
       <mat-label>Edition de l'auteur</mat-label>
-      <input matInput [(ngModel)]="nomAuteur" #input name="auteur" maxlength="50">
+      <input matInput [(ngModel)]="auteur" #input name="auteur" maxlength="50">
       <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
     </mat-form-field>
 
@@ -24,7 +24,7 @@
 
     <mat-form-field appearance="outline" hintLabel="Max 300 characters">
       <mat-label>Edition du commentaire</mat-label>
-      <textarea matInput [(ngModel)]="commentaire" name="commentaire" maxlength="300"></textarea>
+      <textarea matInput [(ngModel)]="remarques" name="commentaire" maxlength="300"></textarea>
       <mat-hint align="end">{{input.value?.length || 0}}/300</mat-hint>
     </mat-form-field>
 

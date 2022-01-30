@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-assignment',
@@ -13,10 +14,14 @@ export class EditAssignmentComponent implements OnInit {
   // champs du formulaire
   nomAssignment?:string;
   dateDeRendu?:string;
+  auteur?: string;
+  remarques?: string;
+
 
   constructor(private route:ActivatedRoute,
               private router:Router,
-              private assignmentService:AssignmentsService) { }
+              private assignmentService:AssignmentsService,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
     // exemple de récupération de "query params" et "fragment"
@@ -40,9 +45,9 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment = assignment;
       // pré-remplit le formulaire dès l'affichage
       this.nomAssignment = assignment?.nom;
-      this.nomAuteur = assignment?.nomAuteur;
+      this.auteur = assignment?.auteur;
       this.dateDeRendu = assignment?.dateDeRendu;
-      this.commentaire = assignment?.commentaire;
+      this.remarques = assignment?.remarques;
     })
   }
 
@@ -53,17 +58,17 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment.nom = this.nomAssignment;
     }
 
-    if (this.nomAuteur) {
-      this.assignment.nomAuteur = this.nomAuteur;
-    }
-
-    if (this.dateDeRendu) {
-      this.assignment.dateDeRendu = this.dateDeRendu;
-    }
-
-    if (this.commentaire) {
-      this.assignment.commentaire = this.commentaire;
-    }
+    // if (this.nomAuteur) {
+    //   this.assignment.nomAuteur = this.nomAuteur;
+    // }
+    //
+    // if (this.dateDeRendu) {
+    //   this.assignment.dateDeRendu = this.dateDeRendu;
+    // }
+    //
+    // if (this.commentaire) {
+    //   this.assignment.commentaire = this.commentaire;
+    // }
 
     this.assignmentService
       .updateAssignment(this.assignment)
