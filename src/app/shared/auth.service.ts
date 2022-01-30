@@ -1,11 +1,41 @@
 import { Injectable } from '@angular/core';
-
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {HttpHeaders} from "@angular/common/http";
+const helper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   loggedIn = false;
+  token: string = 'currentUser';
+  isLoggedIn(){
+    const token = localStorage.getItem(this.token);
+    if(token){
+      if(helper.isTokenExpired(token)){
+        return false;
+      }else{
+        return true;
+      }
+    }
+    return false;
+  }
+  getHeader(): { headers: HttpHeaders }{
+    const token = localStorage.getItem(this.token);
+    let header;
+    if(!token) {
+      header = {
+        headers: new HttpHeaders()
+          .set('Authorization', '')
+      }
+    }else{
+      header = {
+        headers: new HttpHeaders()
+          .set('Authorization', token)
+      }
+    }
 
+    return header;
+  }
   logIn() {
     // typiquement, on devrait prendre en paramètres
     // login et password, vérifier qu'ils sont valides

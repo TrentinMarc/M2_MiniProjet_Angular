@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AssignmentsService } from './shared/assignments.service';
 import { AuthService } from './shared/auth.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,12 @@ import { AuthService } from './shared/auth.service';
 })
 export class AppComponent {
   title = 'Application de gestion des assignments';
-
+  token: string = 'currentUser'
   constructor(
     private authService: AuthService,
     private router: Router,
-    private assignmentsService: AssignmentsService
+    private assignmentsService: AssignmentsService,
+    private toastr: ToastrService
   ) {}
 
   login() {
@@ -28,15 +30,12 @@ export class AppComponent {
     }
   }
 
-  remplirBD() {
-    //this.assignmentsService.peuplerBD();
-
-    this.assignmentsService.peuplerBDAvecForkJoin().subscribe(() => {
-      console.log('LA BASE EST ENTIEREMENT REMPLIE AVEC LES DONNEES DE TEST');
-
-      // replaceUrl = true = force le refresh, même si
-      // on est déjà sur la page d’accueil
-      this.router.navigate(['/home'], { replaceUrl: true });
+  seDeconnecter(){
+    localStorage.removeItem(this.token);
+    this.toastr.success(`Au revoir !`, 'Déconnexion réussi', {
+      progressBar: true,
+      positionClass: 'toast-top-center'
     });
+    this.router.navigate(['login'])
   }
 }

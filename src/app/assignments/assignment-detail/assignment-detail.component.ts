@@ -71,14 +71,14 @@ export class AssignmentDetailComponent implements OnInit {
 
   onClickEdit() {
     // correspond à /assignment/1/edit?nom=Buffa&prenom=Michel#edit
-    this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'],
-                        {
-                          queryParams: {
-                            nom:'Buffa',
-                            prenom:'Michel'
-                        },
-                          fragment:'edit'
-                      });
+    // this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'],
+    //                     {
+    //                       queryParams: {
+    //                         nom:'Buffa',
+    //                         prenom:'Michel'
+    //                     },
+    //                       fragment:'edit'
+    //                   });
   }
 
   isAdmin() {

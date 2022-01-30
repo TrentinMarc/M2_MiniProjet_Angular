@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
+import {Observable} from "rxjs";
+import {Matiere} from "../matiere/matiere.model";
+import {UserService} from "../user/user.service";
+import {MatieresService} from "../shared/matiere.service";
+import {User} from "../user/user.model";
 
 @Component({
   selector: 'app-assignments',
@@ -10,6 +15,10 @@ import { Assignment } from './assignment.model';
 export class AssignmentsComponent implements OnInit {
   ajoutActive = false;
   assignments: Assignment[] = [];
+  matieres: Matiere[] = [];
+  users: User[] = [];
+  matiereLibelles = {};
+  auteurLibelles: string[] = [];
   // pour la pagination
   page: number = 1;
   limit: number = 10;
@@ -19,11 +28,30 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number = 0;
   hasNextPage: boolean = false;
   nextPage: number = 0;
+  displayedColumns: string[] = ['Matière', 'Date de rendu', 'weight', 'symbol'];
 
-  constructor(private assignmentService: AssignmentsService) {}
+  constructor(private assignmentService: AssignmentsService, private userService: UserService, private matiereService: MatieresService) {}
 
-  ngOnInit(): void {
-    this.getAssignments();
+  async ngOnInit(){
+    this.assignmentService.getAssignments().subscribe(data =>{
+      this.assignments = data;
+    });
+
+    this.matiereService.getMatieres().subscribe(data => {
+      this.matieres = data;
+      console.log(this.matieres)
+      this.matieres.forEach(e => {
+        // @ts-ignore
+        this.matiereLibelles[e._id] = e.libelle;
+      })
+      // @ts-ignore
+      console.log(this.matiereLibelles["61ed187d3519147a61a4b2a2"])
+    });
+
+    this.userService.getUsers().subscribe(data => {
+      this.users = data;
+      console.log(data)
+    })
   }
 
   getAssignments() {
