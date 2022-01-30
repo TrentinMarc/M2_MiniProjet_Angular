@@ -7,13 +7,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatListModule} from '@angular/material/list';
-import {MatCardModule} from '@angular/material/card';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle'
-import {HttpClientModule} from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { HttpClientModule } from '@angular/common/http';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSliderModule} from '@angular/material/slider';
 
 import {AssignmentsComponent} from './assignments/assignments.component';
 import {RenduDirective} from './shared/rendu.directive';
@@ -91,7 +93,7 @@ const routes: Routes = [
         FormsModule, MatInputModule, MatDatepickerModule,
         MatNativeDateModule, MatListModule, MatCardModule,
         MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
-        RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule, MatToolbarModule, MatTableModule, MatPaginatorModule
+        RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule
     ],
   exports: [
     RouterModule

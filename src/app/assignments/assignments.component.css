@@ -1,11 +1,11 @@
 .rendu {
-  color:green;
+  color:rgb(1, 112, 1);
+  background-color: rgb(203, 250, 193);
 }
 
 .nonRendu {
-  color:red;
-  background-color: yellow;
-  border : 3px dashed purple;
+  color:rgb(218, 1, 1);
+  background-color: rgb(252, 182, 182);
 }
 
 .important {

@@ -1,25 +1,25 @@
-<!--<h1>-->
-<!--  <nav>-->
-<!--    <a routerLink="/home">-->
-<!--      {{title}}-->
-<!--    </a>-->
-<!--  </nav>-->
-<!--</h1>-->
+<h1>
+  <mat-toolbar color="primary">
+    <div class="example-button-container">
+      <a routerLink="/home" style="color:white; text-decoration: none;">
+        <button mat-mini-fab aria-label="Example icon button with a home icon">
+          <mat-icon>home</mat-icon>
+        </button>
+      </a>
+    </div>
+    <span>
+        {{title}}
+    </span>
+    <span class="example-spacer"></span>
+    <mat-slide-toggle (click)="login()">S'identifier</mat-slide-toggle>
+  </mat-toolbar>
+</h1>
 
-<!--<mat-slide-toggle (click)="login()">Login</mat-slide-toggle>-->
-<!--<br>-->
-<!--<button mat-raised-button-->
-<!--        color="primary"-->
-<!--        (click)="remplirBD()"-->
-<!--&gt;-->
-<!--        PEUPLER BD-->
-<!--</button>-->
-<!--<button mat-raised-button-->
-<!--        color="info"-->
-<!--        (click)="seDeconnecter()"-->
-<!--&gt;-->
-<!--  Se déconnecter-->
-<!--</button>-->
+
+<br>
+<button mat-raised-button color="warn" (click)="remplirBD()">
+  <span class="material-icons">download</span> Peupler la base de données
+</button>
 
   <mat-toolbar color="primary">
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">

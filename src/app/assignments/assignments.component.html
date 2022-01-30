@@ -1,12 +1,40 @@
 <main class="container">
   <div class="ajouterBtn">
     <a routerLink="/add">
-      <button mat-flat-button color="accent">
-        Ajouter Assignment
+      <button mat-raised-button color="accent">
+        <span class="material-icons">add_circle</span>
+        Ajouter un devoir
       </button>
     </a>
   </div>
 
+  </div>
+  <!-- MARIE -->
+  <h2 style="margin: 0.13em;">Liste des devoirs :</h2>
+  <p style="margin: 0.13em;">Nombre de devoirs par page :
+    <mat-slider aria-label="unit(s)" color="primary" min="1" max="100" step="1" value="10" thumbLabel [(ngModel)]="limit" (change)="getAssignments()" style=" width: 250px;">
+      {{limit}}
+    </mat-slider>
+  </p>
+<!--   <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()"> {{limit}}-->
+<div class="pagination" style="margin:auto">
+  <button mat-raised-button color="primary" (click)="premierePage()" [disabled]="page===1" matTooltip="Première page">
+    <span class="material-icons">keyboard_double_arrow_left</span>
+  </button>
+  &nbsp;
+  <button mat-raised-button color="primary" (click)="pagePrecedente()" [disabled]="!hasPrevPage" matTooltip="Page précédente">
+    <span class="material-icons">keyboard_arrow_left</span>
+  </button>
+  &nbsp;
+  <button mat-raised-button color="primary" (click)="pageSuivante()" [disabled]="!hasNextPage" matTooltip="Page suivante">
+    <span class="material-icons">keyboard_arrow_right</span>
+  </button>
+  &nbsp;
+  <button mat-raised-button color="primary" (click)="dernierePage()" [disabled]="page===totalPages" matTooltip="Dernière page">
+    <span class="material-icons">keyboard_double_arrow_right</span>
+  </button>
+</div>
+<!-- marie -->
   <h2>Liste des assignments :</h2>
   Nb assignments par page :
   <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()">

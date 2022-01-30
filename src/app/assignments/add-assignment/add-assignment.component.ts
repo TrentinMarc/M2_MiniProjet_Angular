@@ -15,8 +15,10 @@ export class AddAssignmentComponent implements OnInit {
 
   // associées au champs input du formulaire
   nomDevoir = "";
+  nomAuteur = "";
   dateDeRendu!:Date;
   matieres!: Observable<Matiere[]>;
+  commentaire="";
 
   constructor(private assignmentService:AssignmentsService,
     private router:Router, private matieresService: MatieresService) { }
