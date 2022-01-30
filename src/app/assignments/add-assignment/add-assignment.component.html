@@ -31,13 +31,14 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Textarea</mat-label>
+  <mat-form-field appearance="outline" hintLabel="Max 300 characters">
+    <mat-label>Commentaire</mat-label>
     <textarea matInput [(ngModel)]="commentaire" name="commentaire" maxlength="300" placeholder="Facultatif"></textarea>
     <mat-hint align="end">{{input.value?.length || 0}}/300</mat-hint>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" style="width:18.75em; margin:auto">
+  <br>
+  <button mat-raised-button color="accent" style="width:18.75em; margin:auto">
     <span class="material-icons">add_circle</span>
     Ajouter un devoir
   </button>
