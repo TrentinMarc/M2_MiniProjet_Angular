@@ -26,47 +26,81 @@ export class AssignmentsComponent implements OnInit {
   totalPages: number = 0;
   hasPrevPage: boolean = false;
   prevPage: number = 0;
-  hasNextPage: boolean = false;
+  hasNextPage: boolean = true;
   nextPage: number = 0;
-  displayedColumns: string[] = ['Matière', 'Date de rendu', 'weight', 'symbol'];
+  size: number = 0;
+  nbDisplayed: number = 0;
+  displayedColumns: string[] = ['Matière', 'Date de rendu', 'Auteur', 'Remarques', 'Rendu', 'Note'];
 
   constructor(private assignmentService: AssignmentsService, private userService: UserService, private matiereService: MatieresService) {}
 
   async ngOnInit(){
-    this.assignmentService.getAssignments().subscribe(data =>{
-      this.assignments = data;
-    });
 
     this.matiereService.getMatieres().subscribe(data => {
       this.matieres = data;
-      console.log(this.matieres)
       this.matieres.forEach(e => {
         // @ts-ignore
         this.matiereLibelles[e._id] = e.libelle;
       })
-      // @ts-ignore
-      console.log(this.matiereLibelles["61ed187d3519147a61a4b2a2"])
     });
+
 
     this.userService.getUsers().subscribe(data => {
       this.users = data;
-      console.log(data)
-    })
-  }
-
-  getAssignments() {
-    this.assignmentService.getAssignmentsPagine(this.page, this.limit).subscribe((data) => {
-      // le tableau des assignments est maintenant ici....
-      this.assignments = data.docs;
-      this.page = data.page;
-      this.limit = data.limit;
-      this.totalDocs = data.totalDocs;
-      this.totalPages = data.totalPages;
-      this.hasPrevPage = data.hasPrevPage;
-      this.prevPage = data.prevPage;
-      this.hasNextPage = data.hasNextPage;
-      this.nextPage = data.nextPage;
+      this.users.forEach(e => {
+        // @ts-ignore
+        this.auteurLibelles[e._id] = e.nom;
+      })
     });
+    this.assignmentService.getSize()
+      .subscribe(data => {
+        this.size = Number(data)
+        this.nbDisplayed = this.limit * this.page;
+        this.totalPages = Math.floor(this.size / this.nbDisplayed)
+      });
+
+
+
+    this.getAssignments()
+    // this.assignmentService.getAssignments(this.limit.toString(), this.page.toString()).subscribe(data =>{
+    //   this.assignments = data;
+    //   this.assignments.forEach(assignment => {
+    //     var mat = assignment.matiere;
+    //     var auteur = assignment.auteur;
+    //     // @ts-ignore
+    //     assignment.matiere = this.matiereLibelles[mat];
+    //     // @ts-ignore
+    //     assignment.auteur = this.auteurLibelles[auteur];
+    //   })
+    //   console.log(this.assignments)
+    // });
+
+  }
+  getPageSizeOptions(): number[] {
+    if (this.assignments.length> 100){
+      return [20, 50, this.assignments.length];
+    }else{
+      return [20, 50, 100];
+    }
+  }
+  getAssignments() {
+    this.assignmentService.getAssignments(this.limit.toString(), this.page.toString()).subscribe(data =>{
+      this.assignments = data;
+      this.assignments.forEach(assignment => {
+        var mat = assignment.matiere;
+        var auteur = assignment.auteur;
+        // @ts-ignore
+        assignment.matiere = this.matiereLibelles[mat];
+        // @ts-ignore
+        assignment.auteur = this.auteurLibelles[auteur];
+      })
+    });
+    this.nbDisplayed = this.limit * this.page;
+    this.totalPages = Math.floor(this.size / this.limit)
+    if(this.page > this.totalPages){
+      this.page = this.totalPages
+    }
+
   }
 
   getColor(a: any) {
@@ -76,21 +110,39 @@ export class AssignmentsComponent implements OnInit {
   // pagination
   premierePage() {
     this.page = 1;
+    this.hasPrevPage = false;
+    this.hasNextPage = true;
     this.getAssignments();
   }
 
   dernierePage() {
     this.page = this.totalPages;
+    this.hasPrevPage = true;
+    this.hasNextPage = false;
     this.getAssignments();
   }
 
   pagePrecedente() {
-      this.page = this.prevPage;
-      this.getAssignments();
+      if(this.page > 1){
+        this.getAssignments();
+        this.page--
+        this.hasNextPage = true;
+      }
+      if(this.page == 1){
+        this.hasPrevPage = false
+      }
+
   }
 
   pageSuivante() {
-      this.page = this.nextPage;
+      // this.page = this.nextPage;
+    if(this.page < this.totalPages){
+      this.page++
+      this.hasPrevPage = true;
+    }
+    if(this.page == this.totalPages){
+      this.hasNextPage = false;
+    }
       this.getAssignments();
   }
 

@@ -26,7 +26,7 @@ export class AssignmentDetailComponent implements OnInit {
   getAssignment() {
     // on récupère l'id dans l'URL
     // le + force la conversion de string à number
-    const id:number = +this.route.snapshot.params['id'];
+    const id: string = this.route.snapshot.params['id'];
     console.log("ID = " + id);
 
     this.assignmentService.getAssignment(id)

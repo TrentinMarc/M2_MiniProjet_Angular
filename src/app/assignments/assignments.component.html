@@ -1,41 +1,118 @@
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="assignments">
+<main class="container">
+  <div class="ajouterBtn">
+    <a routerLink="/add">
+      <button mat-flat-button color="accent">
+        Ajouter Assignment
+      </button>
+    </a>
+  </div>
 
-    <!-- Matiere Column -->
-    <ng-container matColumnDef="Matière">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{matieres}} </td>
-    </ng-container>
+  <h2>Liste des assignments :</h2>
+  Nb assignments par page :
+  <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()">
+  Limite : {{limit}} Assignment(s)
+  <br>
+  {{page}} / {{totalPages}} pages
+  <div class="pagination">
+    <button mat-stroked-button color="primary"
+            (click)="premierePage()"
+            [disabled]="page===1"
+    >Première page</button>
+    &nbsp;
+    <button mat-stroked-button color="primary"
+            (click)="pagePrecedente()"
+            [disabled]="!hasPrevPage"
+    >Page précédente</button>
+    &nbsp;
+    <button mat-stroked-button color="primary"
+            (click)="pageSuivante()"
+            [disabled]="!hasNextPage"
+    >Page suivante</button>
+    &nbsp;
+    <button mat-stroked-button color="primary"
+            (click)="dernierePage()"
+            [disabled]="page >= totalPages"
+    >Dernière page</button>
+  </div>
+  <mat-list *ngFor="let assignment of assignments">
+    <nav>
+      <a routerLink="/assignment/{{assignment._id}}">
+        <h3 mat-subheader>Date de rendu : {{assignment.dateDeRendu}}</h3>
+        <mat-list-item>
+          <p *ngIf="assignment.rendu; else nonsoumis" appRendu>
+            {{assignment.nom}} a été rendu par l'élève.
+          </p>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="Date de rendu">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateDeRendu}} </td>
-    </ng-container>
+          <ng-template #nonsoumis>
+            <p>{{assignment.nom}} non rendu.</p>
+          </ng-template>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </a>
+    </nav>
+  </mat-list>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
-</div>
+</main>
 
 
+<!--<div class="example-container">-->
+<!--  <p>-->
+<!--    Start editing to see some magic happen :)-->
+<!--  </p>-->
+<!--  <div class="table-container mat-elevation-z8">-->
+<!--    <mat-table class="my-table" #table [dataSource]="assignments">-->
+
+<!--      &lt;!&ndash;- Note that these columns can be defined in any order.-->
+<!--            The actual rendered columns are set as a property on the row definition" &ndash;&gt;-->
+
+<!--      &lt;!&ndash; Position Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Matière">-->
+<!--        <mat-header-cell *matHeaderCellDef> Matière </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.matiere}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Name Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Date de rendu">-->
+<!--        <mat-header-cell *matHeaderCellDef> Date de rendu </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.dateDeRendu}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Weight Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Auteur">-->
+<!--        <mat-header-cell *matHeaderCellDef> Auteur </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.auteur}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Remarques">-->
+<!--        <mat-header-cell *matHeaderCellDef> Remarques </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.remarques}} </mat-cell>-->
+<!--      </ng-container>-->
+<!--      &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Note">-->
+<!--        <mat-header-cell *matHeaderCellDef> Note </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.note}} </mat-cell>-->
+<!--      </ng-container>-->
+<!--      &lt;!&ndash; Symbol Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="Rendu">-->
+<!--        <mat-header-cell *matHeaderCellDef> Rendu </mat-header-cell>-->
+<!--        <mat-cell *matCellDef="let element"> {{element.rendu}} </mat-cell>-->
+<!--      </ng-container>-->
+
+<!--      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--&lt;!&ndash;      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>&ndash;&gt;-->
+
+<!--    </mat-table>-->
+<!--&lt;!&ndash;    <mat-paginator [pageSizeOptions]="getPageSizeOptions()" showFirstLastButtons></mat-paginator>&ndash;&gt;-->
+<!--    <mat-paginator [length]="20" [pageSizeOptions]="[5, 10, 30, 50]" [pageIndex]="1"></mat-paginator>-->
+
+
+<!--  </div>-->
+<!--  <p>-->
+<!--    Some more content here :)-->
+<!--  </p>-->
+<!--</div>-->
 
 <!--<main class="container">-->
 <!--  <div class="ajouterBtn">-->

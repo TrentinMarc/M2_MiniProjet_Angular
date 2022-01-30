@@ -12,7 +12,7 @@ export class EditAssignmentComponent implements OnInit {
   assignment?:Assignment;
   // champs du formulaire
   nomAssignment?:string;
-  dateDeRendu?:Date;
+  dateDeRendu?:string;
 
   constructor(private route:ActivatedRoute,
               private router:Router,
@@ -31,7 +31,7 @@ export class EditAssignmentComponent implements OnInit {
 
   getAssignment() {
     // récupère l'id dans l'URL
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
 
     this.assignmentService.getAssignment(id)
     .subscribe(assignment => {
