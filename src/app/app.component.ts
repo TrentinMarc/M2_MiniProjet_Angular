@@ -12,30 +12,18 @@ import {ToastrService} from "ngx-toastr";
 export class AppComponent {
   title = 'Application de gestion des assignments';
   token: string = 'currentUser'
+
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private assignmentsService: AssignmentsService,
-    private toastr: ToastrService
+    private authService: AuthService
   ) {}
 
-  login() {
-    if (!this.authService.loggedIn) {
-      console.log("Je n'étais pas connecté, je suis maintenant loggé");
-      this.authService.logIn();
-    } else {
-      console.log("J'étais  connecté, je suis maintenant déloggé");
-      this.authService.logOut();
-      this.router.navigate(['/home']);
+  isLogged(){
+    if(localStorage.getItem('currentUser')){
+      return true;
     }
+    return false;
   }
-
   seDeconnecter(){
-    localStorage.removeItem(this.token);
-    this.toastr.success(`Au revoir !`, 'Déconnexion réussi', {
-      progressBar: true,
-      positionClass: 'toast-top-center'
-    });
-    this.router.navigate(['login'])
+    this.authService.logOut()
   }
 }

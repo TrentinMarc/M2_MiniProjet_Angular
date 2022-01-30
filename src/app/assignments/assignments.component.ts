@@ -57,6 +57,7 @@ export class AssignmentsComponent implements OnInit {
         this.size = Number(data)
         this.nbDisplayed = this.limit * this.page;
         this.totalPages = Math.floor(this.size / this.nbDisplayed)
+        console.log(this.page)
       });
 
 
@@ -94,12 +95,13 @@ export class AssignmentsComponent implements OnInit {
         // @ts-ignore
         assignment.auteur = this.auteurLibelles[auteur];
       })
+      this.nbDisplayed = this.limit * this.page;
+      this.totalPages = Math.floor(this.size / this.limit)
+      if(this.page > this.totalPages){
+        this.page = this.totalPages
+      }
     });
-    this.nbDisplayed = this.limit * this.page;
-    this.totalPages = Math.floor(this.size / this.limit)
-    if(this.page > this.totalPages){
-      this.page = this.totalPages
-    }
+
 
   }
 

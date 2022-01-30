@@ -8,7 +8,7 @@
     </a>
   </div>
 
-  </div>
+<!--  </div>-->
   <!-- MARIE -->
   <h2 style="margin: 0.13em;">Liste des devoirs :</h2>
   <p style="margin: 0.13em;">Nombre de devoirs par page :
@@ -17,6 +17,7 @@
     </mat-slider>
   </p>
 <!--   <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()"> {{limit}}-->
+  1
 <div class="pagination" style="margin:auto">
   <button mat-raised-button color="primary" (click)="premierePage()" [disabled]="page===1" matTooltip="Première page">
     <span class="material-icons">keyboard_double_arrow_left</span>
@@ -25,7 +26,7 @@
   <button mat-raised-button color="primary" (click)="pagePrecedente()" [disabled]="!hasPrevPage" matTooltip="Page précédente">
     <span class="material-icons">keyboard_arrow_left</span>
   </button>
-  &nbsp;
+  &nbsp;{{page}}
   <button mat-raised-button color="primary" (click)="pageSuivante()" [disabled]="!hasNextPage" matTooltip="Page suivante">
     <span class="material-icons">keyboard_arrow_right</span>
   </button>
@@ -33,35 +34,36 @@
   <button mat-raised-button color="primary" (click)="dernierePage()" [disabled]="page===totalPages" matTooltip="Dernière page">
     <span class="material-icons">keyboard_double_arrow_right</span>
   </button>
+  {{totalPages}}
 </div>
 <!-- marie -->
-  <h2>Liste des assignments :</h2>
-  Nb assignments par page :
-  <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()">
-  Limite : {{limit}} Assignment(s)
-  <br>
-  {{page}} / {{totalPages}} pages
-  <div class="pagination">
-    <button mat-stroked-button color="primary"
-            (click)="premierePage()"
-            [disabled]="page===1"
-    >Première page</button>
-    &nbsp;
-    <button mat-stroked-button color="primary"
-            (click)="pagePrecedente()"
-            [disabled]="!hasPrevPage"
-    >Page précédente</button>
-    &nbsp;
-    <button mat-stroked-button color="primary"
-            (click)="pageSuivante()"
-            [disabled]="!hasNextPage"
-    >Page suivante</button>
-    &nbsp;
-    <button mat-stroked-button color="primary"
-            (click)="dernierePage()"
-            [disabled]="page >= totalPages"
-    >Dernière page</button>
-  </div>
+<!--  <h2>Liste des assignments :</h2>-->
+<!--  Nb assignments par page :-->
+<!--  <input type=range min=2 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()">-->
+<!--  Limite : {{limit}} Assignment(s)-->
+<!--  <br>-->
+<!--  {{page}} / {{totalPages}} pages-->
+<!--  <div class="pagination">-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="premierePage()"-->
+<!--            [disabled]="page===1"-->
+<!--    >Première page</button>-->
+<!--    &nbsp;-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="pagePrecedente()"-->
+<!--            [disabled]="!hasPrevPage"-->
+<!--    >Page précédente</button>-->
+<!--    &nbsp;-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="pageSuivante()"-->
+<!--            [disabled]="!hasNextPage"-->
+<!--    >Page suivante</button>-->
+<!--    &nbsp;-->
+<!--    <button mat-stroked-button color="primary"-->
+<!--            (click)="dernierePage()"-->
+<!--            [disabled]="page >= totalPages"-->
+<!--    >Dernière page</button>-->
+<!--  </div>-->
   <mat-list *ngFor="let assignment of assignments">
     <nav>
       <a routerLink="/assignment/{{assignment._id}}">

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {HttpHeaders} from "@angular/common/http";
+import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 const helper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
@@ -48,7 +50,12 @@ export class AuthService {
 
   logOut() {
     // appelée typiquement par le bouton de deconnexion
-
+    localStorage.removeItem(this.token);
+    this.toastr.success(`Au revoir !`, 'Déconnexion réussi', {
+      progressBar: true,
+      positionClass: 'toast-top-center'
+    });
+    this.router.navigate(['login'])
     this.loggedIn = false;
   }
 
@@ -60,5 +67,5 @@ export class AuthService {
     return isUserAdmin;
   }
 
-  constructor() { }
+  constructor(private toastr: ToastrService, private router: Router) { }
 }

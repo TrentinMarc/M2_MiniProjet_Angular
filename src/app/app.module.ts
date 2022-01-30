@@ -31,7 +31,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {LoginComponent} from './login/login.component';
 import {ToastrModule} from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
-import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 
@@ -85,16 +84,16 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot(),
-        MatButtonModule, MatIconModule, MatDividerModule,
-        FormsModule, MatInputModule, MatDatepickerModule,
-        MatNativeDateModule, MatListModule, MatCardModule,
-        MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
-        RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    MatButtonModule, MatIconModule, MatDividerModule,
+    FormsModule, MatInputModule, MatDatepickerModule,
+    MatNativeDateModule, MatListModule, MatCardModule,
+    MatCheckboxModule, MatSlideToggleModule, HttpClientModule,
+    RouterModule.forRoot(routes), MatSelectModule, ReactiveFormsModule, MatSliderModule, MatToolbarModule
+  ],
   exports: [
     RouterModule
   ],
