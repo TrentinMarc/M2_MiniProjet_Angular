@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      this.user = new User('', this.email?.value, this.nom?.value, this.prenom?.value, this.mdp?.value);
+      this.user = new User(null, this.email?.value, this.nom?.value, this.prenom?.value, this.mdp?.value);
       this.userService.addUser(this.user)
         .subscribe(
           response => {
@@ -41,7 +41,23 @@ export class RegisterComponent implements OnInit {
               progressBar: true,
               positionClass: 'toast-top-center'
             });
-            this.router.navigate(['/home'])
+            this.userService.loginUser(this.user)
+              .subscribe(
+                response => {
+                  console.log(response)
+                  this.toastr.success(`Bienvenu ${this.user.nom} ${this.user.prenom}`, response.message, {
+                    progressBar: true,
+                    positionClass: 'toast-top-center'
+                  });
+                  localStorage.setItem('currentUser', response.token);
+                  this.router.navigate(['/home'])
+                },
+                err => {
+                  this.toastr.error(err.error.errorMessage, 'Erreur...', {
+                    progressBar: true,
+                    positionClass: 'toast-top-center'
+                  });
+                });
           },
           err => {
             console.log(err.error.errorMessage)

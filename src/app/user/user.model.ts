@@ -1,5 +1,5 @@
 export class User {
-  constructor(_id: string, email: string, nom: string, prenom: string, mdp: string) {
+  constructor(_id: string | null, email: string, nom: string, prenom: string, mdp: string) {
     this.email = email;
     this.nom = nom;
     this.prenom = prenom;
@@ -7,7 +7,7 @@ export class User {
     this._id = _id;
   }
 
-  _id: string;
+  _id: string | null;
   email: string;
   nom: string;
   prenom: string;
