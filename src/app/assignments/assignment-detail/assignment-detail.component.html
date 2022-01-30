@@ -16,7 +16,8 @@
           <a [routerLink]="['/assignment', assignmentTransmis.id, 'edit']">
           -->
 
-        <button [disabled]="!isAdmin()" mat-stroked-button color="primary" (click)="onClickEdit()">
+        <button [disabled]="!isAdmin()" mat-raised-button color="accent" (click)="onClickEdit()">
+          <span class="material-icons">edit</span>
           Modifier
         </button>
         <!--
@@ -24,7 +25,8 @@
     -->
     </nav>
 
-    <button mat-raised-button color="accent" (click)="onDeleteAssignment()">
+    <button mat-raised-button color="warn" (click)="onDeleteAssignment()">
+      <span class="material-icons">delete</span>
       Effacer
     </button>
   </div>

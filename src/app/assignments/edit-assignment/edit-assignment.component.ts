@@ -40,7 +40,9 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment = assignment;
       // pré-remplit le formulaire dès l'affichage
       this.nomAssignment = assignment?.nom;
+      this.nomAuteur = assignment?.nomAuteur;
       this.dateDeRendu = assignment?.dateDeRendu;
+      this.commentaire = assignment?.commentaire;
     })
   }
 
@@ -51,9 +53,18 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment.nom = this.nomAssignment;
     }
 
+    if (this.nomAuteur) {
+      this.assignment.nomAuteur = this.nomAuteur;
+    }
+
     if (this.dateDeRendu) {
       this.assignment.dateDeRendu = this.dateDeRendu;
     }
+
+    if (this.commentaire) {
+      this.assignment.commentaire = this.commentaire;
+    }
+
     this.assignmentService
       .updateAssignment(this.assignment)
       .subscribe((reponse) => {

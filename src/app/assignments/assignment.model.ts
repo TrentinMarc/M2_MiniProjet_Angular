@@ -5,4 +5,5 @@ export class Assignment {
   matiere: string | undefined;
   auteur?: string;
   _id?:string;
+  commentaire!:string;
 }
